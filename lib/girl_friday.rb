@@ -19,6 +19,14 @@ end
 
 module GirlFriday
 
+  if ConditionVariable.instance_method(:wait).arity == 1
+    class ConditionVariable < ::ConditionVariable
+      def wait mutex, ignored_timeout
+        super mutex
+      end
+    end
+  end
+
   @lock = Mutex.new
 
   def self.add_queue(ref)
